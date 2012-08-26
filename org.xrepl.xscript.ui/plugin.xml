@@ -174,7 +174,7 @@
  <extension point="org.eclipse.ui.console.consoleFactories">
       <consoleFactory
             label="Interactive Xbase"
-            class="org.xrepl.xscript.ui.XscriptExecutableExtensionFactory:org.xrepl.ui.console.XreplConsoleFactory"
+            class="org.xtext.scripting.ui.ScriptingExecutableExtensionFactory:org.xrepl.ui.console.XreplConsoleFactory"
            >
       </consoleFactory>
    </extension>
