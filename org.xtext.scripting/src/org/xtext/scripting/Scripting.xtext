@@ -12,7 +12,23 @@ import "http://www.eclipse.org/xtext/xbase/Xbase"
 
 Script returns XBlockExpression:
 	{Script}
-	((expressions+=XExpressionInsideBlock | imports+=Import) ';'?)*;
+	((expressions+=XExpression | expressions+=XVariableDeclaration | imports+=Import) ';'?)*;
+
+XPrimaryExpression returns XExpression:
+	XConstructorCall |
+	XBlockExpression |
+	XSwitchExpression |
+	XFeatureCall |
+	XLiteral |
+	XIfExpression |
+	XForLoopExpression |
+	XWhileExpression |
+	XDoWhileExpression |
+	XThrowExpression |
+	XReturnExpression |
+	XTryCatchFinallyExpression |
+	XParenthesizedExpression
+;
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;

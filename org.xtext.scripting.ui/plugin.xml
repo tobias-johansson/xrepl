@@ -371,5 +371,12 @@
             extensions="script">
     </provider>
   </extension>
+  <extension
+        point="org.eclipse.ui.console.consoleFactories">
+     <consoleFactory
+           class="org.xtext.scripting.ui.ScriptingExecutableExtensionFactory:org.xrepl.ui.console.XreplConsoleFactory"
+           label="Interactive Xbase">
+     </consoleFactory>
+  </extension>
 
 </plugin>

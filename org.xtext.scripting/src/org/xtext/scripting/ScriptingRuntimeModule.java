@@ -7,9 +7,23 @@
  ******************************************************************************/
 package org.xtext.scripting;
 
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.xbase.interpreter.IExpressionInterpreter;
+import org.xtext.scripting.interpreter.ScriptingInterpreter;
+import org.xtext.scripting.scoping.ScriptingScopeProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class ScriptingRuntimeModule extends org.xtext.scripting.AbstractScriptingRuntimeModule {
 
+	@Override
+	public Class<? extends IExpressionInterpreter> bindIExpressionInterpreter() {
+		return ScriptingInterpreter.class;
+	}
+	
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return ScriptingScopeProvider.class;
+	}
 }
