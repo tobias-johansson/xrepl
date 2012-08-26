@@ -74,7 +74,7 @@ public class ConsoleOutputView implements OutputView {
 	public void showInput(String input) {
 		Color outputDefault = colorManager.getColor(ColorManager.DEFAULT);
 		separateFromPreviousOutput(outputDefault);
-		append("user=> " + input.substring(0, input.length() - 1),
+		append(input.substring(0, input.length() - 1),
 				outputDefault, false);
 	}
 
@@ -88,10 +88,16 @@ public class ConsoleOutputView implements OutputView {
 	public void showResult(Object result) {
 		Color outputResults = colorManager
 				.getColor(ColorManager.OUTPUT_RESULTS);
+		Color outputResultsType = colorManager
+				.getColor(ColorManager.OUTPUT_RESULTS_TYPE);
 		if (result == null) {
 			result = "null";
 		}
-		append(result.toString(), outputResults, false);
+		String typeName = result.getClass().getName();
+		
+		append(result.toString(), outputResults, false, false);
+		append(" " + typeName, outputResultsType, false);
+		
 	}
 
 	public void showError(Throwable e) {
@@ -106,6 +112,10 @@ public class ConsoleOutputView implements OutputView {
 	}
 
 	private void append(final String text, final Color color, final boolean bold) {
+		append(text, color, bold, true);
+	}
+	
+	private void append(final String text, final Color color, final boolean bold, final boolean newline) {
 		runInUiThread(new Runnable() {
 
 			public void run() {
@@ -114,7 +124,8 @@ public class ConsoleOutputView implements OutputView {
 					int offset = doc.getLength();
 					int length = text.length();
 
-					String command = text + '\n';
+					String command = text;
+					if (newline) command += '\n';
 
 					if (offset > 0) {
 						doc.replace(offset, 0, command);

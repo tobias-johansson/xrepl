@@ -26,6 +26,7 @@ public class ColorManager {
 
     public static RGB OUTPUT_ERROR = new RGB(192, 0, 0);
     public static RGB OUTPUT_RESULTS = new RGB(0, 0, 192);
+    public static RGB OUTPUT_RESULTS_TYPE = new RGB(140, 70, 0);
     
 	private Map<RGB, Color> colors = new java.util.HashMap<RGB, Color>(10);
 
