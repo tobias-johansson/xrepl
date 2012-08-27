@@ -35,6 +35,16 @@ public class ScriptingUiModule extends org.xtext.scripting.ui.AbstractScriptingU
 		super.configure(binder);
 	}
 	
+	@Override
+	public Class<? extends org.eclipse.xtext.common.types.access.IJvmTypeProvider.Factory> bindIJvmTypeProvider$Factory() {
+		return org.eclipse.xtext.common.types.access.ClasspathTypeProviderFactory.class;
+	}
+
+	@Override
+	public Class<? extends org.eclipse.xtext.common.types.xtext.AbstractTypeScopeProvider> bindAbstractTypeScopeProvider() {
+		return org.eclipse.xtext.common.types.xtext.ClasspathBasedTypeScopeProvider.class;
+	}
+	
 	protected String getConsoleTitle() {
 		return "Xbase";
 	}
