@@ -26,9 +26,6 @@ public class ScriptingRuntimeModule extends org.xtext.scripting.AbstractScriptin
 	public void configure(Binder binder) {
 		super.configure(binder);
 
-		binder.bind(StaticImplicitMethodsFeatureForTypeProvider.ExtensionClassNameProvider.class).to(
-				ASExtensionClassNameProvider.class);
-
 	}
 
 	@Override
