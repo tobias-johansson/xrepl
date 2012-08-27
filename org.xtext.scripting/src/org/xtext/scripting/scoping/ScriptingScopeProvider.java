@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
@@ -34,10 +35,7 @@ public class ScriptingScopeProvider extends XbaseScopeProvider {
 	protected IScope createLocalVarScope(IScope parentScope, LocalVariableScopeContext scopeContext) {
 		if (scopeContext.getContext() instanceof Script) {
 			Script xScript = (Script) scopeContext.getContext();
-			SimpleScope scope = new SimpleScope(allVariables(xScript));
-			for (IEObjectDescription elem : scope.getAllElements()) {
-				System.out.println( elem.getName() + ", " );
-			}
+			IScope scope = MapBasedScope.createScope(parentScope, allVariables(xScript));
 			return scope; 
 		}else{
 			return super.createLocalVarScope(parentScope, scopeContext);

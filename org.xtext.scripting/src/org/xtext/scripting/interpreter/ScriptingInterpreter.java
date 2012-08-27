@@ -10,17 +10,18 @@
  *******************************************************************************/
 package org.xtext.scripting.interpreter;
 
-import java.util.List;
+import java.util.HashSet;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.interpreter.IEvaluationContext;
 import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter;
+import org.xtext.scripting.scripting.Import;
 import org.xtext.scripting.scripting.Script;
 
-@SuppressWarnings("restriction")
 public class ScriptingInterpreter extends XbaseInterpreter {
 	
 	
@@ -35,10 +36,15 @@ public class ScriptingInterpreter extends XbaseInterpreter {
 //	
 
 	public Object _evaluateScript(Script literal, IEvaluationContext context, CancelIndicator cancelIndicator) {
-		List<XExpression> expressions = literal.getExpressions();
 		Object result = null;
-		for (XExpression expression : expressions) {
-			result = internalEvaluate(expression, context, cancelIndicator);
+		for (EObject element : literal.eContents()) {
+			if (element instanceof XExpression) {
+				XExpression expression = (XExpression) element;
+				result = internalEvaluate(expression, context, cancelIndicator);
+			} else if (element instanceof Import) {
+				Import xImport = (Import) element;
+				result = xImport;
+			}
 		}
 		return result;
 	}
